@@ -31,8 +31,8 @@ CREATE TABLE worked_on (
     release_year INT NOT NULL,
     cast_id INT NOT NULL,
     PRIMARY KEY (title, release_year, cast_id, role),
-    FOREIGN KEY (title, release_year) REFERENCES movie(title, release_year),
-    FOREIGN KEY (cast_id) REFERENCES cast_crew(id)
+    FOREIGN KEY (title, release_year) REFERENCES movie(title, release_year) ON DELETE CASCADE,
+    FOREIGN KEY (cast_id) REFERENCES cast_crew(id) ON DELETE CASCADE
 );
 
 -- 5. Relation 'review'
@@ -44,6 +44,6 @@ CREATE TABLE review (
     title VARCHAR(255) NOT NULL,
     release_year INT NOT NULL,
     PRIMARY KEY (username, title, release_year),
-    FOREIGN KEY (username) REFERENCES account(username),
-    FOREIGN KEY (title, release_year) REFERENCES movie(title, release_year)
+    FOREIGN KEY (username) REFERENCES account(username) ON DELETE CASCADE,
+    FOREIGN KEY (title, release_year) REFERENCES movie(title, release_year) ON DELETE CASCADE
 ); 
