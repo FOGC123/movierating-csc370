@@ -47,3 +47,10 @@ CREATE TABLE review (
     FOREIGN KEY (username) REFERENCES account(username) ON DELETE CASCADE,
     FOREIGN KEY (title, release_year) REFERENCES movie(title, release_year) ON DELETE CASCADE
 ); 
+
+CREATE TABLE genres (
+    title VARCHAR(255) NOT NULL,
+    release_year INT NOT NULL
+    FOREIGN KEY (title, release_year) REFERENCES movie(title, release_year) ON DELETE CASCADE
+    genre VARCHAR(50) NOT NULL
+);
