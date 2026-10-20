@@ -26,11 +26,10 @@ CREATE TABLE account (
 
 -- 4. Relation 'worked on' (connects movie and cast, adds role attribute)
 CREATE TABLE worked_on (
-    role VARCHAR(100) NOT NULL,
     title VARCHAR(255) NOT NULL,
     release_year INT NOT NULL,
     cast_id INT NOT NULL,
-    PRIMARY KEY (title, release_year, cast_id, role),
+    PRIMARY KEY (title, release_year, cast_id),
     FOREIGN KEY (title, release_year) REFERENCES movie(title, release_year) ON DELETE CASCADE,
     FOREIGN KEY (cast_id) REFERENCES cast_crew(id) ON DELETE CASCADE
 );
@@ -47,6 +46,16 @@ CREATE TABLE review (
     FOREIGN KEY (username) REFERENCES account(username) ON DELETE CASCADE,
     FOREIGN KEY (title, release_year) REFERENCES movie(title, release_year) ON DELETE CASCADE
 ); 
+
+-- multi valued attribute roles on relation worked on
+CREATE TABLE roles (
+    role_title VARCHAR(100) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    release_year INT NOT NULL,
+    cast_id INT NOT NULL
+    PRIMARY KEY (role_title, title, release_year, cast_id),
+    FOREIGN KEY (title, release_year, cast_id) REFERENCES worked_on(title, release_year, cast_id) ON DELETE CASCADE
+);
 
 -- 6. Entity 'genre'
 CREATE TABLE genre(
