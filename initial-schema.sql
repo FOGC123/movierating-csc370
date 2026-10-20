@@ -14,7 +14,7 @@ CREATE TABLE movie (
 
 -- 2. Entity 'cast_crew'
 CREATE TABLE cast_crew (
-    id INT PRIMARY KEY NOT NULL,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL
 );
 
@@ -53,12 +53,15 @@ CREATE TABLE genre(
     name VARCHAR(50) PRIMARY KEY
 );
 
--- Relationship 'is a' (movie<-> genre)
+-- Relationship 'has genre' (movie<-> genre)
 CREATE TABLE movie_genre (
     title VARCHAR(255) NOT NULL,
     release_year INT NOT NULL,
     genre_name VARCHAR(50) NOT NULL,
     PRIMARY KEY (title, release_year, genre_name),
     FOREIGN KEY (title, release_year) REFERENCES movie(title, release_year) ON DELETE CASCADE,
-    FOREIGN KEY (genre_name) REFERENCES genre(name) ON DELETE CASCADE
+    FOREIGN KEY (genre_name) REFERENCES genre(name) ON DELETE RESTRICT on UPDATE CASCADE
 );
+
+INSERT INTO genre (name) VALUES
+('Action'), ('Comedy'), ('Drama'), ('Horror'), ('Romance'), ('Sci-Fi'), ('Thriller'), ('Western'), ('Fantasy'), ('Mystery'), ('Musical');
