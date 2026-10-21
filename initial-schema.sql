@@ -28,10 +28,10 @@ CREATE TABLE account (
 CREATE TABLE worked_on (
     title VARCHAR(255) NOT NULL,
     release_year INT NOT NULL,
-    cast_id INT NOT NULL,
+    id INT NOT NULL,
     PRIMARY KEY (title, release_year, cast_id),
     FOREIGN KEY (title, release_year) REFERENCES movie(title, release_year) ON DELETE CASCADE,
-    FOREIGN KEY (cast_id) REFERENCES cast_crew(id) ON DELETE CASCADE
+    FOREIGN KEY (id) REFERENCES cast_crew(id) ON DELETE CASCADE
 );
 
 -- 5. Relation 'review'
