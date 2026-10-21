@@ -21,7 +21,7 @@ For this initial kick-off sprint, we established the foundational data architect
 
 ---
 
-## Sprint 1 SUmmary
+## Sprint 1 Summary
 In this sprint, we expanded our roles to be a multi valued dependency, and created a one to many relation between movies and our new genres table. We ensured the table with the MVD complied with the 4NF regulation.
 
 ---
