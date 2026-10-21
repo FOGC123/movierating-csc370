@@ -52,7 +52,7 @@ CREATE TABLE roles (
     role_title VARCHAR(100) NOT NULL,
     title VARCHAR(255) NOT NULL,
     release_year INT NOT NULL,
-    cast_id INT NOT NULL
+    cast_id INT NOT NULL,
     PRIMARY KEY (role_title, title, release_year, cast_id),
     FOREIGN KEY (title, release_year, cast_id) REFERENCES worked_on(title, release_year, cast_id) ON DELETE CASCADE
 );
