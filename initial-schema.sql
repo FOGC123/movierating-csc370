@@ -54,7 +54,7 @@ CREATE TABLE roles (
     release_year INT NOT NULL,
     cast_id INT NOT NULL,
     PRIMARY KEY (role_title, title, release_year, cast_id),
-    FOREIGN KEY (title, release_year, cast_id) REFERENCES worked_on(title, release_year, cast_id) ON DELETE CASCADE
+    FOREIGN KEY (title, release_year, id) REFERENCES worked_on(title, release_year, id) ON DELETE CASCADE
 );
 
 -- 6. Entity 'genre'
