@@ -14,7 +14,7 @@ CREATE TABLE movie (
 
 -- 2. Entity 'cast_crew'
 CREATE TABLE cast_crew (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    cast_id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL
 );
 
