@@ -29,3 +29,5 @@ In this sprint, we expanded our roles to be a multi valued dependency, and creat
 ## Repository Structure
 * `initial-schema.sql`: Executable script containing table definitions, primary keys, foreign keys, and constraints.
 * `entity_relationship_diagram.jpg`: ERD diagram.
+* `csc370 kickoff.pdf`: PDF with slides from the Kick-Off.
+* `csc370_group19_sprint1.pdf`: PDF with slides from Sprint 1.
