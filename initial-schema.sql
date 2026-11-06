@@ -9,6 +9,7 @@ USE movie_rating_db;
 CREATE TABLE movie (
     title VARCHAR(255) NOT NULL,
     release_year INT NOT NULL,
+    average_rating DECIMAL(3,1),
     PRIMARY KEY (title, release_year)
 );
 
@@ -16,7 +17,7 @@ CREATE TABLE movie (
 CREATE TABLE cast_crew (
     cast_id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
-    average_rating DECMIAL(3,1)
+    average_rating DECIMAL(3,1)
 );
 
 -- 3. Entity 'account'
