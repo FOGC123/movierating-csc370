@@ -73,7 +73,23 @@ CREATE TABLE movie_genre (
     FOREIGN KEY (genre_name) REFERENCES genre(name) ON DELETE RESTRICT on UPDATE CASCADE
 );
 
+DELIMITER //
 
+CREATE TRIGGER update_average_rating
+AFTER INSERT ON review
+FOR EACH ROW
+BEGIN
+    UPDATE movie
+    SET average_rating = (
+    SELECT AVG(rating)
+    WHERE review.title = NEW.title,
+    AND review.release_year = NEW.release_year
+    )
+    WHERE movie.title = NEW.title
+    AND movie.release_year = NEW.release_year;
+END //
+
+DELIMITER ;
 
 INSERT INTO genre (name) VALUES
 ('Action'), ('Comedy'), ('Drama'), ('Horror'), ('Romance'), ('Sci-Fi'), ('Thriller'), ('Western'), ('Fantasy'), ('Mystery'), ('Musical');
