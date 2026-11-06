@@ -15,7 +15,8 @@ CREATE TABLE movie (
 -- 2. Entity 'cast_crew'
 CREATE TABLE cast_crew (
     cast_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL
+    name VARCHAR(255) NOT NULL,
+    average_rating DECMIAL(3,1)
 );
 
 -- 3. Entity 'account'
@@ -71,6 +72,8 @@ CREATE TABLE movie_genre (
     FOREIGN KEY (title, release_year) REFERENCES movie(title, release_year) ON DELETE CASCADE,
     FOREIGN KEY (genre_name) REFERENCES genre(name) ON DELETE RESTRICT on UPDATE CASCADE
 );
+
+
 
 INSERT INTO genre (name) VALUES
 ('Action'), ('Comedy'), ('Drama'), ('Horror'), ('Romance'), ('Sci-Fi'), ('Thriller'), ('Western'), ('Fantasy'), ('Mystery'), ('Musical');
