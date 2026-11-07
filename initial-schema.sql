@@ -49,7 +49,7 @@ CREATE TABLE review (
     FOREIGN KEY (title, release_year) REFERENCES movie(title, release_year) ON DELETE CASCADE
 ); 
 
--- multi valued attribute roles on relation worked on
+-- multi-valued attribute roles on relation worked on
 CREATE TABLE roles (
     role_title VARCHAR(100) NOT NULL,
     title VARCHAR(255) NOT NULL,
@@ -83,7 +83,8 @@ BEGIN
     UPDATE movie
     SET average_rating = (
     SELECT AVG(rating)
-    WHERE review.title = NEW.title,
+    FROM review
+    WHERE review.title = NEW.title
     AND review.release_year = NEW.release_year
     )
     WHERE movie.title = NEW.title
