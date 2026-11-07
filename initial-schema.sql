@@ -106,6 +106,21 @@ BEGIN
     AND movie.release_year = NEW.release_year;
 END //
 
+    CREATE TRIGGER update_average_rating_on_delete
+AFTER DELETE ON review
+FOR EACH ROW
+BEGIN
+    UPDATE movie
+    SET average_rating = (
+        SELECT AVG(rating)
+        FROM review
+        WHERE review.title = OLD.title
+        AND review.release_year = OLD.release_year
+    )
+    WHERE movie.title = OLD.title
+    AND movie.release_year = OLD.release_year;
+END //
+    
 DELIMITER ;
 
 INSERT INTO genre (name) VALUES
