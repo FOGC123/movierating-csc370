@@ -125,3 +125,26 @@ DELIMITER ;
 
 INSERT INTO genre (name) VALUES
 ('Action'), ('Comedy'), ('Drama'), ('Horror'), ('Romance'), ('Sci-Fi'), ('Thriller'), ('Western'), ('Fantasy'), ('Mystery'), ('Musical');
+
+-- SAMPLE DATA
+INSERT INTO account (username, password) VALUES
+('alice', 'pw1'), ('bob', 'pw2'), ('carol', 'pw3'), ('dave', 'pw4'), ('erin', 'pw5');
+
+INSERT INTO movie (title, release_year) VALUES
+('Inception', 2010), ('The Godfather', 1972), ('Jaws', 1975),
+('Heat', 1995), ('Arrival', 2016);
+
+INSERT INTO review (rating, text_content, username, title, release_year) VALUES
+(8.0, 'Great', 'alice', 'Inception', 2010),
+(6.5, 'Good', 'bob', 'Inception', 2010),
+(9.0, 'Loved it', 'carol', 'Inception', 2010),
+(7.0, 'Solid', 'dave', 'Inception', 2010),
+(9.5, 'Masterpiece', 'alice', 'The Godfather', 1972),
+(9.0, 'Classic', 'bob', 'The Godfather', 1972),
+(10.0, 'Perfect', 'carol', 'The Godfather', 1972),
+(8.5, 'Excellent', 'erin', 'The Godfather', 1972),
+(7.5, 'Tense', 'bob', 'Jaws', 1975),
+(6.0, 'Dated', 'dave', 'Jaws', 1975),
+(8.0, 'Iconic', 'erin', 'Jaws', 1975),
+(7.0, 'Fun', 'carol', 'Heat', 1995),
+(5.5, 'Too long', 'erin', 'Heat', 1995);
