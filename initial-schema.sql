@@ -153,10 +153,22 @@ INSERT INTO review (rating, text_content, username, title, release_year) VALUES
 
 
 -- GOAL 2 --
-
-
-
-
+SELECT 
+    m.title,
+    m.release_year,
+    m.average_rating AS movie_overall_avg,
+    FLOOR(r.rating) AS rating_bucket,
+    COUNT(*) AS bucket_count,
+    ROUND((COUNT(*) * 100.0) / SUM(COUNT(*)) OVER (), 1) AS review_percentage
+FROM movie m
+JOIN review r 
+    ON m.title = r.title 
+   AND m.release_year = r.release_year
+WHERE m.title = 'Inception' 
+  AND m.release_year = 2010
+GROUP BY m.title, m.release_year, m.average_rating, FLOOR(r.rating)
+HAVING COUNT(*) >= 1
+ORDER BY rating_bucket ASC;
 
 
 -- GOAL 3--
