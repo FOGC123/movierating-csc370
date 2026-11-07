@@ -126,15 +126,25 @@ DELIMITER ;
 
 
 INSERT INTO genre (name) VALUES
-('Action'), ('Comedy'), ('Drama'), ('Horror'), ('Romance'), ('Sci-Fi'), ('Thriller'), ('Western'), ('Fantasy'), ('Mystery'), ('Musical');
+('Action'), ('Comedy'), ('Drama'), ('Horror'), ('Romance'),
+ ('Sci-Fi'), ('Thriller'), ('Western'), ('Fantasy'), ('Mystery'), ('Musical');
 
 -- SAMPLE DATA
 INSERT INTO account (username, password) VALUES
-('alice', 'pw1'), ('bob', 'pw2'), ('carol', 'pw3'), ('dave', 'pw4'), ('erin', 'pw5');
+('alice', 'pw1'), ('bob', 'pw2'), ('carol', 'pw3'), ('dave', 'pw4'), ('erin', 'pw5'), ('test_ghost_user', 'pw_test');
 
 INSERT INTO movie (title, release_year) VALUES
 ('Inception', 2010), ('The Godfather', 1972), ('Jaws', 1975),
 ('Heat', 1995), ('Arrival', 2016);
+
+INSERT INTO movie_genre (title, release_year, genre_name) VALUES
+('Inception', 2010, 'Sci-Fi'), 
+('Inception', 2010, 'Action'),
+('The Godfather', 1972, 'Drama'),
+('Jaws', 1975, 'Thriller'),
+('Heat', 1995, 'Action'), 
+('Heat', 1995, 'Drama'),
+('Arrival', 2016, 'Sci-Fi');
 
 INSERT INTO review (rating, text_content, username, title, release_year) VALUES
 (8.0, 'Great', 'alice', 'Inception', 2010),
@@ -195,3 +205,33 @@ LEFT JOIN review r
     ON m.title = r.title 
    AND m.release_year = r.release_year
 WHERE r.rating IS NULL;
+
+-- Additional goals based on the modules covered in the course--
+
+--1. Subquery to aggregate aggregations with conditions --
+-- Find the genres with the highest average movie rating among genres that have at least one reviewed movie --
+SELECT mg.genre_name, AVG(m.average_rating) AS genre_avg_rating
+FROM movie_genre mg
+JOIN movie m 
+    ON mg.title = m.title AND mg.release_year = m.release_year
+WHERE EXISTS (
+    SELECT 1 FROM review r 
+    WHERE r.title = m.title AND r.release_year = m.release_year
+)
+GROUP BY mg.genre_name
+HAVING AVG(m.average_rating) >= ALL (
+    SELECT AVG(m2.average_rating)
+    FROM movie_genre mg2
+    JOIN movie m2 
+        ON mg2.title = m2.title AND mg2.release_year = m2.release_year
+    WHERE m2.average_rating IS NOT NULL
+    GROUP BY mg2.genre_name
+);
+
+-- 2. Complex DML: Delete test accounts that have never submitted a review using NOT EXISTS
+DELETE FROM account
+WHERE username LIKE 'test_%'
+  AND NOT EXISTS (
+      SELECT 1 FROM review r 
+      WHERE r.username = account.username
+  );
