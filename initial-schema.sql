@@ -1,4 +1,4 @@
--- DATABASE SYSTEMS: PROJECT KICK-OFF --
+-- DATABASE SYSTEMS: PROJECT SPRINT 2 --
 
 -- CREATE DATABASE
 DROP DATABASE IF EXISTS movie_rating_db;
@@ -74,6 +74,7 @@ CREATE TABLE movie_genre (
     FOREIGN KEY (genre_name) REFERENCES genre(name) ON DELETE RESTRICT on UPDATE CASCADE
 );
 
+-- GOAL 1 --
 DELIMITER //
 
 CREATE TRIGGER update_average_rating
@@ -123,6 +124,7 @@ END //
     
 DELIMITER ;
 
+
 INSERT INTO genre (name) VALUES
 ('Action'), ('Comedy'), ('Drama'), ('Horror'), ('Romance'), ('Sci-Fi'), ('Thriller'), ('Western'), ('Fantasy'), ('Mystery'), ('Musical');
 
@@ -148,3 +150,36 @@ INSERT INTO review (rating, text_content, username, title, release_year) VALUES
 (8.0, 'Iconic', 'erin', 'Jaws', 1975),
 (7.0, 'Fun', 'carol', 'Heat', 1995),
 (5.5, 'Too long', 'erin', 'Heat', 1995);
+
+
+-- GOAL 2 --
+
+
+
+
+
+
+-- GOAL 3--
+EXPLAIN SELECT * FROM movie WHERE release_year = 2010;       --evaluate query before creating index
+
+CREATE INDEX idx_movie_release_year ON movie(release_year);   --create secondary index on release_year
+
+EXPLAIN SELECT * FROM movie WHERE release_year = 2010;        --evaluate query after creating index
+
+
+-- GOAL 4--
+-- First version (complex query)
+SELECT m.title, m.release_year
+FROM movie m
+WHERE (m.title, m.release_year) NOT IN (
+    SELECT DISTINCT r.title, r.release_year 
+    FROM review r
+);
+
+-- Second version (using LEFT JOIN)
+SELECT m.title, m.release_year
+FROM movie m
+LEFT JOIN review r 
+    ON m.title = r.title 
+   AND m.release_year = r.release_year
+WHERE r.rating IS NULL;
