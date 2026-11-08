@@ -182,11 +182,11 @@ ORDER BY rating_bucket ASC;
 
 
 -- GOAL 3--
-EXPLAIN SELECT * FROM movie WHERE release_year = 2010;       --evaluate query before creating index
+EXPLAIN SELECT * FROM movie WHERE release_year = 2010;       -- evaluate query before creating index
 
-CREATE INDEX idx_movie_release_year ON movie(release_year);   --create secondary index on release_year
+CREATE INDEX idx_movie_release_year ON movie(release_year);   -- create secondary index on release_year
 
-EXPLAIN SELECT * FROM movie WHERE release_year = 2010;        --evaluate query after creating index
+EXPLAIN SELECT * FROM movie WHERE release_year = 2010;        -- evaluate query after creating index
 
 
 -- GOAL 4--
@@ -208,7 +208,7 @@ WHERE r.rating IS NULL;
 
 -- Additional goals based on the modules covered in the course--
 
---1. Subquery to aggregate aggregations with conditions --
+-- 1. Subquery to aggregate aggregations with conditions --
 -- Find the genres with the highest average movie rating among genres that have at least one reviewed movie --
 SELECT mg.genre_name, AVG(m.average_rating) AS genre_avg_rating
 FROM movie_genre mg
